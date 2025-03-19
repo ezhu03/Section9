@@ -463,12 +463,14 @@ def train_cnn(cnn, X_train, y_train_oh, X_test, y_test_oh, num_epochs=20, batch_
 # -----------------------------
 # Instantiate and train the MLP
 # -----------------------------
+
+mlp_size = 20
+
 mlp = MLP(layer_sizes=[784, 128, 64, 10], activations=['relu', 'relu', 'linear'])
 print("Training MLP on MNIST...")
 mlp_train_losses, mlp_test_losses, mlp_train_acc, mlp_test_acc = train_mlp(mlp, X_train, y_train_oh, X_test, y_test_oh,
-                                                                           num_epochs=10, batch_size=128, learning_rate=0.01)
+                                                                           num_epochs=mlp_size, batch_size=128, learning_rate=0.01)
 
-mlp_size = 10
 epochs = np.arange(1, mlp_size+1)
 
 plt.figure(figsize=(12,5))
@@ -526,16 +528,16 @@ conv_configs = [
 ]
 fc_input_dim = 32 * 22 * 22
 fc_config = {'input_dim': fc_input_dim, 'output_dim': 10}
-
+cnn_size=10
 cnn = CNN(conv_configs, fc_config, conv_activation='relu', fc_activation='linear')
 print("\nTraining CNN on MNIST...")
 cnn_train_losses, cnn_test_losses, cnn_train_acc, cnn_test_acc = train_cnn(cnn, X_train, y_train_oh, X_test, y_test_oh,
-                                                                           num_epochs=2, batch_size=128, learning_rate=0.01)
+                                                                           num_epochs=cnn_size, batch_size=128, learning_rate=0.01)
 
 # -----------------------------
 # Plot convergence curves for MLP and CNN
 # -----------------------------
-cnn_size=2
+
 epochs = np.arange(1, cnn_size+1)
 plt.figure(figsize=(12,5))
 plt.subplot(1,2,1)
